@@ -1,4 +1,22 @@
 h1{
-    background-origin: padding-box;
-    text-align: center;
+    text-decoration: color(from color srgb r g b); 
+    text-decoration: dashed;
+    text-align: left;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}  
+
+img{
+   
+}
+
+table{
+    position: sticky;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration: dashed;
+    text-decoration:color(from color srgb r g b);
+    border-spacing: 3cm ;
+    top: -110px;
+    padding-top: 0cap;
+    margin-top: 0cap;
+    position: relative;
 }
