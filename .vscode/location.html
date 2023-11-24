@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Bike Showrooms</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4BVqz249SYnHc4-3NupjoJfi4StePB2E"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: { lat: 40.7128, lng: -74.0060 }
+            });
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                const userMarker = new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    icon: {
+                        url: 'https://maps.gstatic.com/mapfiles/marker.png',
+                        size: new google.maps.Size(32, 32)
+                    }
+                });
+
+                const searchUrl = `https://maps.googleapis.com/maps/api/place/search/json?location=${userLocation.lat},${userLocation.lng}&radius=5000&type=bike_store&key=AIzaSyA4BVqz249SYnHc4-3NupjoJfi4StePB2E`;
+                fetch(searchUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const results = data.results;
+                        for (const result of results) {
+                            const showroomMarker = new google.maps.Marker({
+                                position: { lat: result.geometry.location.lat, lng: result.geometry.location.lng },
+                                map: map,
+                                title: result.name,
+                                icon: {
+                                    url: 'https://maps.gstatic.com/mapfiles/ms2/micons/bicycling.png',
+                                    size: new google.maps.Size(32, 32)
+                                }
+                            });
+
+                            showroomMarker.addListener('click', () => {
+                                const infoWindow = new google.maps.InfoWindow({
+                                    content: `<strong>${result.name}</strong><br>${result.vicinity}`
+                                });
+                                infoWindow.open(map, showroomMarker);
+                            });
+                        }
+                    });
+            }, (error) => {
+                console.error('Error retrieving location:', error);
+            });
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
