@@ -1,0 +1,13 @@
+#map-container {
+    width: 100vw;
+    height: 80vh;
+    margin: 0 auto;
+}
+
+#search-box {
+    width: 90%;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
