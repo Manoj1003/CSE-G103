@@ -1,32 +1,47 @@
 <html>
+  <link rel="stylesheet" href="price.css">
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawSeriesChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Price', 'Price'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]
-        ]);
+    function drawSeriesChart() {
 
-        var options = {
-          title: 'Adventure bike',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
-        };
+      var data = google.visualization.arrayToDataTable([
+        ['ID', 'Year', 'Price'],
+        ['BMW',    2010,              7.9],
+        ['Bajaj',    2012,              3.7],
+        ['KTM',    2022,               1.845],
+        ['Royal enfield',    2013,              2.78],
+        ['TVS',    2011,              2],
+        ['Harley',    2017,              1.7],
+        ['Ducati',    2013,              4.77],
+        ['Hero Honda',    2020,              2.96],
+        ['Yamaha',    2020,               1.54],
+        ['Suzuki',    2021,              2.05]
+      ]);
 
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
+      var options = {
+        title: 'Price Comparision',
+        hAxis: {title: 'Year',
+        viewWindow: {min: 2010, max: 2023}, 
+    ticks: [2010, 2015, 2020, 2023] 
+      },
+        vAxis:{
+    title: 'Price (Lakh)',
+    viewWindow: {min: 1, max: 11},       
+    ticks: [1, 3, 5, 7, 9, 11]          
+  },
+        bubble: {textStyle: {fontSize: 10}}
+      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      chart.draw(data, options);
+    }
     </script>
-    <hr>
   </head>
   <body>
-    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+    <div id="series_chart_div"></div>
   </body>
 </html>
